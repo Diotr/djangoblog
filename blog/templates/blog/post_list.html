@@ -5,11 +5,21 @@
     <title>Blog dla programistów</title>
 </head>
 <body>
+<div>
 <h1>Witam na stronie bloga!</h1>
 <h2>Blog o programowaniu</h2>
 <h3>Autor: Diotr</h3>
 <h4>Wszelkie prawa zastrzeżone</h4>
-<p>To jest akapit</p>
-<i>To jest wyróżniony tekst</i>
+</div>
+{% comment %}
+Hello!
+{% endcomment %}
+{% for post in posts %}
+<div>
+    <p>opublikowany: {{ post.publish_date }}</p>
+    <h2><a href="">{{ post.title }}</a></h2>
+    <em>{{ post.text|linebreaksbr }}</em>
+</div>
+{% endfor %}
 </body>
 </html>
