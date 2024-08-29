@@ -4,16 +4,16 @@ from .models import Post
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
-from blog.forms import ImgForm
+from blog.forms import PostForm
 from django.views.generic import DetailView
 
 
 class Image(TemplateView):
-    form = ImgForm
+    form = PostForm
     template_name = 'blog/image.html'
 
     def post(self, request, *args, **kwargs):
-        form = ImgForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save()
             return HttpResponseRedirect(reverse_lazy('image_display', kwargs={'pk': obj.id}))
@@ -38,3 +38,7 @@ def post_list(request):
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
+
+def post_new(request):
+    form = PostForm()
+    return render(request, 'blog/post_edit.html', {'form': form})
